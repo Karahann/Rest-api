@@ -2,6 +2,8 @@
 const User = require("../models/user");
 const CustomError = require("../helpers/error/customError");
 const asyncErrorWrapper = require("express-async-handler");
+const sendJwtToClient = require("../helpers/authorization/sendJwtToClient");
+
 
 const register = asyncErrorWrapper( async (req,res,next)=>{
 
@@ -13,13 +15,17 @@ const register = asyncErrorWrapper( async (req,res,next)=>{
         password,
         role
     });
+  
+    sendJwtToClient(user,res);
+
+    // const token = user.generateJwtFromUser();
     
-    res
-    .status(200)
-    .json({
-        success:true,
-        data : user
-    });
+    // res
+    // .status(200)
+    // .json({
+    //     success:true,
+    //     data : user
+    // });
 
 });
 
