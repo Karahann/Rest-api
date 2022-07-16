@@ -22,12 +22,6 @@ const sendJwtToClient = (user,res)=>{
 
 };
 const isTokenIncluded = (req)=>{
-    console.log("---------------");
-
-    console.log(req.headers.authorization);
-    console.log(req.headers.authorization.startsWith("Bearer:"));
-    console.log("---------------");
-
     return (
         req.headers.authorization && req.headers.authorization.startsWith('Bearer:')
     );

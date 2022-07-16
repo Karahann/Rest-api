@@ -46,6 +46,38 @@ const login = asyncErrorWrapper(async ( req,res,next)=>{
     sendJwtToClient(user,res);
 });
 
+const logout = asyncErrorWrapper(async ( req,res,next)=>{
+
+    const {JWT_COOKİE_EXPIRE,NODE_ENV} = process.env;
+
+    return res.status(200)
+    .cookie({
+        httpOnly : true,
+        expires : new Date(Date.now()),
+        secure : NODE_ENV === "development" ? false : true
+    }).json({
+        success : true,
+        message : "Logout Success"
+    });
+
+});
+
+const imageUpload = asyncErrorWrapper(async ( req,res,next)=>{
+
+    const user = await User.findByIdAndUpdate(req.user.id,{
+        "profile_image" : req.savedProfileImage
+    },{
+        new : true,
+        runValidators : true
+    })
+    res.status(200)
+    .json({
+        success : true,
+        message : "Image Upload Successfull",
+        data : user
+    });
+});
+
 const getUser = (req,res,next)=>{
     res.json({
         success : true,
@@ -60,5 +92,7 @@ const getUser = (req,res,next)=>{
 module.exports = {
     register,
     getUser,
-    login
+    login,
+    logout,
+    imageUpload
 };

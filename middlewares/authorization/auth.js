@@ -19,7 +19,6 @@ const getAccessToRoute = (req,res,next)=>{
             id : decoded.id,
             name : decoded.name
         }
-        console.log(decoded);
         next();
     });
 
