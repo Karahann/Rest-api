@@ -53,7 +53,6 @@ const getQuestionOwnerAccess = asyncErrorWrapper(async(req,res,next)=>{
 });
 
 
-
 module.exports = {
     getAccessToRoute,
     getAdminAccess,
